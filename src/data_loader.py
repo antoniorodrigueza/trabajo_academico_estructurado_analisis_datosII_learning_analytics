@@ -1,5 +1,6 @@
 import pandas as pd
 
-def load_data(path):
-    df = pd.read_csv(path)
-    return df
+def cargar_dataset(ruta_archivo):
+    tabla = pd.read_csv(ruta_archivo)
+    return tabla
+
