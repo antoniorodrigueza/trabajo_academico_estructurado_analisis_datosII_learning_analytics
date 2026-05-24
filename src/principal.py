@@ -4,7 +4,7 @@ from generador_blockchain import CadenaBloques as CadenaSegura
 from generador_analitica import filtrar_bajo_rendimiento as filtrar_riesgo, visualizar_notas as graficar_notas
 
 # --- Lectura del dataset ---
-tabla_estudiantes = cargar_archivo('../data/students.csv')
+tabla_estudiantes = cargar_archivo('../data/estudiantes.csv')
 
 # --- Cifrado de nombres ---
 tabla_estudiantes['nombre_cifrado'] = tabla_estudiantes['name'].apply(cifrar_texto)
