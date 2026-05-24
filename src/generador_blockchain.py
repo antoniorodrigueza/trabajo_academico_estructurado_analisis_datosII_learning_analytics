@@ -3,45 +3,51 @@ import json
 import time
 
 
-class Block:
-    def __init__(self, data, previous_hash=''):
-        self.timestamp = time.time()
-        self.data = data
-        self.previous_hash = previous_hash
-        self.hash = self.calculate_hash()
+class NodoBloque:
+    def __init__(self, contenido, hash_anterior=''):
+        self.marca_tiempo = time.time()
+        self.contenido = contenido
+        self.hash_anterior = hash_anterior
+        self.hash_actual = self.generar_hash()
 
-    def calculate_hash(self):
-        block_string = json.dumps({
-            'timestamp': self.timestamp,
-            'data': self.data,
-            'previous_hash': self.previous_hash
-        }, sort_keys=True).encode()
+    def generar_hash(self):
+        paquete = {
+            'marca_tiempo': self.marca_tiempo,
+            'contenido': self.contenido,
+            'hash_anterior': self.hash_anterior
+        }
 
-        return hashlib.sha256(block_string).hexdigest()
+        cadena = json.dumps(paquete, sort_keys=True).encode()
+        return hashlib.sha256(cadena).hexdigest()
 
 
-class Blockchain:
+class CadenaBloques:
     def __init__(self):
-        self.chain = [self.create_genesis_block()]
+        self.bloques = [self._bloque_inicial()]
 
-    def create_genesis_block(self):
-        return Block('Genesis Block', '0')
+    def _bloque_inicial(self):
+        return NodoBloque('Bloque Inicial', '0')
 
-    def get_latest_block(self):
-        return self.chain[-1]
+    def ultimo_bloque(self):
+        return self.bloques[-1]
 
-    def add_block(self, data):
-        previous_hash = self.get_latest_block().hash
-        new_block = Block(data, previous_hash)
-        self.chain.append(new_block)
+    def insertar_bloque(self, contenido):
+        hash_prev = self.ultimo_bloque().hash_actual
+        bloque_nuevo = NodoBloque(contenido, hash_prev)
+        self.bloques.append(bloque_nuevo)
 
-    def is_chain_valid(self):
-        for i in range(1, len(self.chain)):
-            current = self.chain[i]
-            previous = self.chain[i - 1]
+    def validar_cadena(self):
+        for indice in range(1, len(self.bloques)):
+            actual = self.bloques[indice]
+            anterior = self.bloques[indice - 1]
 
-            if current.hash != current.calculate_hash():
+            if actual.hash_actual != actual.generar_hash():
                 return False
+
+            if actual.hash_anterior != anterior.hash_actual:
+                return False
+
+        return True
 
             if current.previous_hash != previous.hash:
                 return False
