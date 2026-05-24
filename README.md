@@ -1,4 +1,4 @@
-# trabajo_academico_estructurado_analisis_datosII_learning_analytics
+# Trabajo académico estructurado de la asignatura de "Analisis de Datos II"... 
 El objetivo de este trabajo es diseñar e implementar una herramienta simple en Python que integre conceptos de Learning Analytics con elementos de criptografía y blockchain.
 
 # Learning Analytics con Criptografía y Blockchain
@@ -32,4 +32,4 @@ Proyecto académico desarrollado en Python que integra:
 
 ```bash
 pip install -r requirements.txt
-python src/main.py
+python src/principal.py
