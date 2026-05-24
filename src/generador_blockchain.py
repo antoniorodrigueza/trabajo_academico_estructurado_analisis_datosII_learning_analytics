@@ -49,7 +49,7 @@ class CadenaBloques:
 
         return True
 
-            if current.previous_hash != previous.hash:
-                return False
+        if current.previous_hash != previous.hash:
+            return False
 
         return True
